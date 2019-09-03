@@ -32,6 +32,7 @@
                         <LinearLayout
                             android:layout_width="400dp"
                             android:layout_height="251dp"
+                            android:gravity="center"
                             android:background="@drawable/login_pages"
                             android:orientation="vertical">
 
@@ -58,12 +59,12 @@
 
 
                 <EditText
-                    android:id="@+id/username_input_text"
+                    android:id="@+id/eventname_input_text"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/white_button_orange_text"
                     android:drawableLeft="@drawable/ic_cake_black_24dp"
-                    android:hint="Username"
+                    android:hint="Enter event name"
                     android:padding="5dp"
                     android:elevation="10dp"
                     android:textSize="14sp"
@@ -72,12 +73,42 @@
                     android:layout_marginTop="30dp"/>
 
                 <EditText
-                    android:id="@+id/password_input_text"
+                    android:id="@+id/eventlocation_input_text"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/white_button_orange_text"
                     android:drawableLeft="@drawable/ic_map_black_24dp"
-                    android:hint="Pin"
+                    android:hint="Enter event location"
+                    android:textSize="14sp"
+                    android:inputType="numberPassword"
+                    android:padding="5dp"
+                    android:elevation="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
+                <EditText
+                    android:id="@+id/eventdatetime_input_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/white_button_orange_text"
+                    android:drawableLeft="@drawable/ic_map_black_24dp"
+                    android:hint="Enter event date"
+                    android:textSize="14sp"
+                    android:inputType="numberPassword"
+                    android:padding="5dp"
+                    android:elevation="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
+                <EditText
+                    android:id="@+id/evententrance_input_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/white_button_orange_text"
+                    android:drawableLeft="@drawable/ic_map_black_24dp"
+                    android:hint="Enter event Entrance"
                     android:textSize="14sp"
                     android:inputType="numberPassword"
                     android:padding="5dp"
@@ -97,10 +128,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Forgot Password?"
+                        android:text="rate our app??"
                         android:textColor="@color/colorWhite"/>
                     <TextView
-                        android:id="@+id/redirect_forgot_password"
+                        android:id="@+id/rate_our_app"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
@@ -111,7 +142,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/button_login"
+                    android:id="@+id/button_upload_event"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"

@@ -12,9 +12,11 @@ import com.example.myapplication.ui.fragments.UploadEventFragment;
 
 public class TabAdapter extends FragmentPagerAdapter {
     Context mContext;
-    public TabAdapter(FragmentManager fm,Context context) {
+    private int numOfTabs;
+    public TabAdapter(FragmentManager fm, Context context, int numOfTabs) {
         super(fm);
         mContext=context;
+        this.numOfTabs=numOfTabs;
     }
 
     @Override
@@ -32,7 +34,7 @@ public class TabAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return numOfTabs;
     }
 
     @Nullable

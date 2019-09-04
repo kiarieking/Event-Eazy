@@ -92,7 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/white_button_orange_text"
-                    android:drawableLeft="@drawable/ic_map_black_24dp"
+                    android:drawableLeft="@drawable/ic_time"
                     android:hint="Enter event date"
                     android:textSize="14sp"
                     android:inputType="numberPassword"
@@ -107,7 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/white_button_orange_text"
-                    android:drawableLeft="@drawable/ic_map_black_24dp"
+                    android:drawableLeft="@drawable/ic_entrance"
                     android:hint="Enter event Entrance"
                     android:textSize="14sp"
                     android:inputType="numberPassword"
@@ -140,7 +140,16 @@
                         android:layout_gravity="center"
                         android:gravity="center"/>
                 </LinearLayout>
-
+                <Button
+                    android:id="@+id/button_select_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:text="select image"
+                    android:textColor="@color/colorPrimary"
+                    android:backgroundTint="@color/colorWhite"
+                    android:gravity="center"/>
                 <Button
                     android:id="@+id/button_upload_event"
                     android:layout_width="wrap_content"

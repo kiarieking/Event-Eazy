@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
 import android.text.InputType;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.models.EventModel;
 import com.example.myapplication.networking.RetrofitClient;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 
@@ -44,8 +48,9 @@ public class UploadEventFragment extends Fragment {
 
     public static final int GALLERY_REQUEST_CODE = 361;
     DatePickerDialog mPicker;
-    EditText etName, etVenue, etTime, etEntrance;
+    EditText etName, etVenue, etTime, etEntrance, etShortDescription, etLongDescription;
     Button btnUploadEvent, btnSelectImage;
+    String imgDecodableString,imageString;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,6 +60,8 @@ public class UploadEventFragment extends Fragment {
         etVenue = view.findViewById(R.id.eventlocation_input_text);
         etTime = view.findViewById(R.id.eventdatetime_input_text);
         etEntrance = view.findViewById(R.id.evententrance_input_text);
+        etShortDescription = view.findViewById(R.id.et_event_short_description);
+        etLongDescription = view.findViewById(R.id.et_event_long_description);
         btnUploadEvent = view.findViewById(R.id.button_upload_event);
         btnSelectImage = view.findViewById(R.id.button_select_image);
 
@@ -109,14 +116,23 @@ public class UploadEventFragment extends Fragment {
             switch (requestCode){
                 case GALLERY_REQUEST_CODE:
                     Uri selectedImage = data.getData();
+
+
+
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
                     Cursor cursor = getActivity().getContentResolver().query(selectedImage,
                             filePathColumn, null, null, null);
                     cursor.moveToFirst();
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String imgDecodableString = cursor.getString(columnIndex);
-                    cursor.close();
+                    imgDecodableString = cursor.getString(columnIndex);
                     Toast.makeText(getActivity(),imgDecodableString,Toast.LENGTH_LONG).show();
+//                    ByteArrayOu  tputStream baos = new ByteArrayOutputStream();
+//                    Bitmap bitmap = BitmapFactory.decodeFile(imgDecodableString);
+//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+//                    byte[] imageBytes = baos.toByteArray();
+//                    imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                    cursor.close();
+
                     break;
             }
         }
@@ -127,10 +143,12 @@ public class UploadEventFragment extends Fragment {
         String location = etVenue.getText().toString().trim();
         int entrance = Integer.parseInt(etEntrance.getText().toString().trim());
         String dateTime = etTime.getText().toString().trim();
-        String imageUrl = "pictures/eventpicture";
+        String shortDescription = etShortDescription.getText().toString().trim();
+        String longDescription = etLongDescription.getText().toString().trim();
 
 
-        EventModel eventModel = new EventModel(name,location,imageUrl,entrance,dateTime);
+        EventModel eventModel = new EventModel(name, location, imageString, entrance, dateTime,
+                shortDescription, longDescription);
         
         Call<EventModel> call = RetrofitClient.getInstance(getActivity())
                 .getApiConnector()

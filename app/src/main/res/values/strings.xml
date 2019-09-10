@@ -5,4 +5,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="new_events">New Events</string>
     <string name="upload_event">Upload Event</string>
+    <string name="view_event_details">View Event Details</string>
+    <string name="event_specific_name">Event specific name</string>
+    <string name="event_location">Event_specific_location</string>
+    <string name="event_date">Event specific date</string>
+    <string name="event_short_description">Event short description</string>
+    <string name="event_detailed_description">Event detailed description</string>
+    <string name="attend_event">Attend Event</string>
 </resources>

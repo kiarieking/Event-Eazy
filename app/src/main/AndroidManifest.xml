@@ -12,7 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".ui.activities.EventDetailActivity"></activity>
+        <activity android:name=".ui.activities.EventHistory"></activity>
+        <activity android:name=".ui.activities.LoginActivity" />
+        <activity android:name=".ui.activities.RegisterActivity" />
+        <activity android:name=".ui.activities.ScheduledEventsActivity" />
+        <activity android:name=".ui.activities.EventDetailActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ui.activities.EventActivity">
             <intent-filter>

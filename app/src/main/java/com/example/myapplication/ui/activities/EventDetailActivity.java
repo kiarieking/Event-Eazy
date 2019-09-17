@@ -2,7 +2,10 @@ package com.example.myapplication.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +26,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static androidx.core.os.LocaleListCompat.create;
+
 public class EventDetailActivity extends AppCompatActivity {
     private ImageView mImageView;
     private TextView txEventName, txEventLocation, txEventDate,txEventShortDescription,
@@ -31,6 +36,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private EventModel eventModel;
     private int btn_controller = 1;
     int event;
+    SharedPreferences mSharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +50,11 @@ public class EventDetailActivity extends AppCompatActivity {
         txEventLongDescription = findViewById(R.id.event_long_description);
         btnAttendEvent = findViewById(R.id.btn_attend_event);
         btnShareEvent = findViewById(R.id.btn_share_event);
+        mSharedPreferences = getApplicationContext().getSharedPreferences("myPref",0);
 
         Intent intent = getIntent();
         eventModel = intent.getParcelableExtra(EventRecyclerAdapter.CURRENT_POSITION);
-        Glide.with(EventDetailActivity.this).load("http://192.168.1.8:8000"+eventModel.getEventimage())
+        Glide.with(EventDetailActivity.this).load("http://192.168.1.5:8000"+eventModel.getEventimage())
                 .into(mImageView);
         txEventName.setText(eventModel.getTitle());
         txEventDate.setText(eventModel.getDateTime());
@@ -60,20 +67,67 @@ public class EventDetailActivity extends AppCompatActivity {
         btnAttendEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (btn_controller == 1)
+                String token = mSharedPreferences.getString("token",null);
+                if (token==null)
                 {
-                    attendEvent();
-                    btnAttendEvent.setText("CANCEL EVENT");
-                    btn_controller = 2;
+                    loginRegisterAlertDialog();
                 }
-                else if(btn_controller == 2)
+                else
                 {
-                    cancelEvent();
-                    btnAttendEvent.setText("ATTEND EVENT");
-                    btn_controller = 1;
+                    attendOrCancelEvent();
                 }
+
             }
         });
+    }
+
+    private void attendOrCancelEvent() {
+        if (btn_controller == 1)
+        {
+            attendEvent();
+            btnAttendEvent.setText("CANCEL EVENT");
+            btn_controller = 2;
+        }
+        else if(btn_controller == 2)
+        {
+            cancelEvent();
+            btnAttendEvent.setText("ATTEND EVENT");
+            btn_controller = 1;
+        }
+    }
+
+    private void loginRegisterAlertDialog()
+    {
+        final AlertDialog alertDialog = new AlertDialog.Builder(
+                EventDetailActivity.this).create();
+        alertDialog.setTitle("Login");
+        alertDialog.setMessage("you need to be logged in before uploading your event");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Login",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(
+                                EventDetailActivity.this, LoginActivity.class));
+                    }
+                });
+
+
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Register",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(EventDetailActivity.this, RegisterActivity.class));
+                    }
+                });
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        alertDialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
     private void cancelEvent() {
